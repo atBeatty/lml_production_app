@@ -1,3 +1,3 @@
 class Production < ApplicationRecord
-  belongs_to :crew
+  belongs_to :crew, optional: true
 end

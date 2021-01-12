@@ -5,7 +5,7 @@ class ProductionsController < ApplicationController
   def index
     @productions = Production.all
 
-    render json: @productions
+    render json: @productions, include: [:crew]
   end
 
   # GET /productions/1
@@ -16,6 +16,7 @@ class ProductionsController < ApplicationController
   # POST /productions
   def create
     @production = Production.new(production_params)
+    # binding.pry
 
     if @production.save
       render json: @production, status: :created, location: @production
