@@ -5,7 +5,7 @@ class CrewsController < ApplicationController
   def index
     @crews = Crew.all
 
-    render json: @crews
+    render json: @crews, include: [:crew_members, :productions]
   end
 
   # GET /crews/1
@@ -16,6 +16,9 @@ class CrewsController < ApplicationController
   # POST /crews
   def create
     @crew = Crew.new(crew_params)
+
+    # binding.pry
+
 
     if @crew.save
       render json: @crew, status: :created, location: @crew
@@ -46,6 +49,6 @@ class CrewsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def crew_params
-      params.require(:crew).permit(:rating, :comments)
+      params.require(:crew).permit(:rating, :comments, crew_member_attributes:[:name, :email])
     end
 end

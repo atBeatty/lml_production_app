@@ -1,5 +1,6 @@
 class Crew < ApplicationRecord
     has_many :crew_members
     has_many :productions
-    # has_many
+
+    accepts_nested_attributes_for :crew_members
 end
