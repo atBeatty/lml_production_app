@@ -4,5 +4,7 @@ class Production < ApplicationRecord
   has_many :crew_members, through: :crew
 
   validates :name, presence: true
+  validates :client, presence: true
+
    
 end

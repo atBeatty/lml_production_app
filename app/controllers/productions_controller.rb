@@ -8,7 +8,7 @@ class ProductionsController < ApplicationController
   end
 
   def show
-    render json: @production
+    render json: @production, include: [:crew_members]
   end
 
   def create
