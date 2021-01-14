@@ -46,6 +46,6 @@ class CrewMembersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def crew_member_params
-      params.require(:crew_member).permit(:name, :email, :employer, :rate, :crew_id)
+      params.require(:crew_member).permit(:name, :email, :role, :employer, :rate, :crew_id)
     end
 end

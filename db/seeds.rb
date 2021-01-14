@@ -23,8 +23,8 @@ CrewMember.create(name: Faker::Name.name, email: Faker::Internet.email, employer
 # Producer.create(name: "Ariana", email: Faker::Internet.email)
 
 
-20.times do 
-    Production.create!(name: Faker::Mountain.name, client: Faker::Company.name, crew_id: rand(3)+1)
+5.times do 
+    Production.create(name: Faker::Mountain.name, client: Faker::Company.name, crew_id: rand(3)+1)
 end
 # Production.create(name: "Under Armour Shoot", client: "Nike", crew_id: 1)
 # Production.create(name: "Nike Shoot", client: "Nike", crew_id: 2)
