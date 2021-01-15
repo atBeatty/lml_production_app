@@ -1,54 +1,56 @@
 class CrewsController < ApplicationController
   before_action :set_crew, only: [:show, :update, :destroy]
 
-  # GET /crews
   def index
     @crews = Crew.all
 
-    render json: @crews, include: [:crew_members, :productions]
+    render json: @crews, include: [:crew_members, :production]
   end
 
-  # GET /crews/1
   def show
-    render json: @crew
+    render json: @crew, include: [:crew_members, :production]
   end
 
-  # POST /crews
   def create
     @crew = Crew.new(crew_params)
-
-    # binding.pry
-
-
+    
     if @crew.save
-      render json: @crew, status: :created, location: @crew
+      params["crewMembers"].each do |member, value|
+        @crew.crew_members << CrewMember.create(name: member["name"], email: member["email"], rate: member["rate"], role: member["role"], employer: member["employer"])
+      end
+
+      render json: @crew, include: [:crew_members, :production], status: :created, location: @crew
     else
       render json: @crew.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /crews/1
   def update
+    params["crewArray"].each do |member, value|
+      @crew.crew_members << CrewMember.create(name: member["name"], email: member["email"], rate: member["rate"], role: member["role"], employer: member["employer"])
+    end
+
+      binding.pry
     if @crew.update(crew_params)
-      render json: @crew
+      render json: @crew, include: [:crew_members, :production]
     else
       render json: @crew.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /crews/1
   def destroy
     @crew.destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_crew
       @crew = Crew.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def crew_params
-      params.require(:crew).permit(:rating, :comments, crew_member_attributes:[:name, :email, :role, :employer, :rate, :crew_id])
+      params.require(:crew).permit(:rating, :comments, :crew_ids, crew_members_attributes: [:name, :email, :rate, :employer, :role, :crew_id])
     end
 end
+
+
+

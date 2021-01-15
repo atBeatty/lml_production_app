@@ -16,16 +16,8 @@ CrewMember.create(name: Faker::Name.name, email: Faker::Internet.email, employer
 CrewMember.create(name: Faker::Name.name, email: Faker::Internet.email, employer: Faker::Company.name, role: "ppe specialist", rate: 63, crew_id: 3)
 CrewMember.create(name: Faker::Name.name, email: Faker::Internet.email, employer: Faker::Company.name, role: "stylist", rate: 23, crew_id: 3)
 
-# Client.create(name: "Under Armour")
-# Client.create(name: "Nike")
 
-# Producer.create(name: "Miss Lynch", email: Faker::Internet.email)
-# Producer.create(name: "Ariana", email: Faker::Internet.email)
+Production.create(name: Faker::Mountain.name, client: Faker::Company.name, crew_id: 1)
+Production.create(name: Faker::Mountain.name, client: Faker::Company.name, crew_id: 2)
+Production.create(name: Faker::Mountain.name, client: Faker::Company.name, crew_id: 3)
 
-
-5.times do 
-    Production.create(name: Faker::Mountain.name, client: Faker::Company.name, crew_id: rand(3)+1)
-end
-# Production.create(name: "Under Armour Shoot", client: "Nike", crew_id: 1)
-# Production.create(name: "Nike Shoot", client: "Nike", crew_id: 2)
-# Production.create(name: "Nike Marathon Race", client: "Adidas", crew_id: 3)
