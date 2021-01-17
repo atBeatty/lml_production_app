@@ -8,12 +8,12 @@ class ProductionsController < ApplicationController
   end
 
   def show
-    render json: @production, include: [:crew_members]
+    render json: @production, include: [:crew, :crew_members]
   end
 
   def create
     @production = Production.new(production_params)
-
+    @production.crew = Crew.create()
     if @production.save
       render json: @production, status: :created, location: @production
     else

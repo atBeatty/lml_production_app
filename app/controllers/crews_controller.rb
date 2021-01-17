@@ -13,6 +13,7 @@ class CrewsController < ApplicationController
 
   def create
     @crew = Crew.new(crew_params)
+
     
     if @crew.save
       params["crewMembers"].each do |member, value|
@@ -26,16 +27,18 @@ class CrewsController < ApplicationController
   end
 
   def update
+    # binding.pry
     params["crewArray"].each do |member, value|
-      @crew.crew_members << CrewMember.create(name: member["name"], email: member["email"], rate: member["rate"], role: member["role"], employer: member["employer"])
+      @crew.crew_members << CrewMember.create(name: member["name"], email: member["email"], rate: member["rate"].to_i, role: member["role"], employer: member["employer"])
+      @crew.save
+      render json: @crew, include: [:crew_members, :production]
     end
 
-      binding.pry
-    if @crew.update(crew_params)
-      render json: @crew, include: [:crew_members, :production]
-    else
-      render json: @crew.errors, status: :unprocessable_entity
-    end
+    # if @crew.update(crew_params)
+    #   render json: @crew, include: [:crew_members, :production]
+    # else
+    #   render json: @crew.errors, status: :unprocessable_entity
+    # end
   end
 
   def destroy
@@ -48,7 +51,7 @@ class CrewsController < ApplicationController
     end
 
     def crew_params
-      params.require(:crew).permit(:rating, :comments, :crew_ids, crew_members_attributes: [:name, :email, :rate, :employer, :role, :crew_id])
+      params.require(:crew).permit(:rating, :comments, :crew_id, crew_members_attributes: [:name, :email, :rate, :employer, :role, :crew_id])
     end
 end
 

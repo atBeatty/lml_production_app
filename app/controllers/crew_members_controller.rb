@@ -13,9 +13,11 @@ class CrewMembersController < ApplicationController
 
   def create
     @crew_member = CrewMember.new(crew_member_params)
-
+    c = Crew.find_by_id(params["crew_id"])
+    c.crew_members << @crew_member
+    
     if @crew_member.save
-      render json: @crew_member, status: :created, location: @crew_member
+      render json: @crew_member, status: :created, location: @productions
     else
       render json: @crew_member.errors, status: :unprocessable_entity
     end
@@ -39,6 +41,6 @@ class CrewMembersController < ApplicationController
     end
 
     def crew_member_params
-      params.require(:crew_member).permit(:name, :email, :role, :employer, :rate, :crew_id)
+      params.require(:crew_member).permit(:name, :email, :role, :employer, :id, :rate, :crew_id)
     end
 end
