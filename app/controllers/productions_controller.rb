@@ -14,6 +14,7 @@ class ProductionsController < ApplicationController
   def create
     @production = Production.new(production_params)
     @production.crew = Crew.create()
+    
     if @production.save
       render json: @production, status: :created, location: @production
     else

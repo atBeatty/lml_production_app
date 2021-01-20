@@ -12,10 +12,11 @@ class CrewMembersController < ApplicationController
   end
 
   def create
+
     @crew_member = CrewMember.new(crew_member_params)
     c = Crew.find_by_id(params["crew_id"])
     c.crew_members << @crew_member
-    
+    # binding.pry
     if @crew_member.save
       render json: @crew_member, status: :created, location: @productions
     else
