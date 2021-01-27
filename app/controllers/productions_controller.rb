@@ -18,7 +18,6 @@ class ProductionsController < ApplicationController
     if @production.save
       render json: @production, status: :created, location: @production
     else
-
       render json: @production.errors, status: :unprocessable_entity
     end
   end
