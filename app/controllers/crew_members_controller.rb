@@ -34,6 +34,7 @@ class CrewMembersController < ApplicationController
 
   def destroy
     @crew_member.destroy
+    render json: @crew_member
   end
 
   private

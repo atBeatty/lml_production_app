@@ -5,7 +5,6 @@ class Production < ApplicationRecord
   # allow_nested_attributes_for :crew, :crew_members
 
   validates :name, presence: true
-  validates :client, presence: true
 
    
 end

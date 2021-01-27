@@ -13,11 +13,12 @@ class ProductionsController < ApplicationController
 
   def create
     @production = Production.new(production_params)
-    @production.crew = Crew.create()
+    @production.crew = Crew.new()
     
     if @production.save
       render json: @production, status: :created, location: @production
     else
+
       render json: @production.errors, status: :unprocessable_entity
     end
   end
